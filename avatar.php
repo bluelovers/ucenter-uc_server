@@ -19,6 +19,11 @@ $type = isset($_GET['type']) ? $_GET['type'] : '';
 $check = isset($_GET['check_file_exists']) ? $_GET['check_file_exists'] : '';
 
 $avatar = './data/avatar/'.get_avatar($uid, $size, $type);
+
+// bluelovers
+include './uc_version.php';
+// bluelovers
+
 if(file_exists(dirname(__FILE__).'/'.$avatar)) {
 	if($check) {
 		echo 1;
@@ -35,11 +40,11 @@ if(file_exists(dirname(__FILE__).'/'.$avatar)) {
 	$avatar_url = 'images/noavatar_'.$size.'.gif';
 }
 
-if(empty($random)) {
-	header("HTTP/1.1 301 Moved Permanently");
-	header("Last-Modified:".date('r'));
-	header("Expires: ".date('r', time() + 86400));
-}
+//if(empty($random)) {
+//	header("HTTP/1.1 301 Moved Permanently");
+//	header("Last-Modified:".date('r'));
+//	header("Expires: ".date('r', time() + 86400));
+//}
 
 header('Location: '.UC_API.'/'.$avatar_url);
 exit;

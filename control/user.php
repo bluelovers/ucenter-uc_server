@@ -28,7 +28,7 @@ class usercontrol extends base {
 		$this->load('user');
 	}
 
-	// -1 Î´¿ªÆô
+	// -1 æœªé–‹å•Ÿ
 	function onsynlogin() {
 		$this->init_input();
 		$uid = $this->input('uid');
@@ -37,10 +37,19 @@ class usercontrol extends base {
 				$synstr = '';
 				foreach($this->cache['apps'] as $appid => $app) {
 					if($app['synlogin']) {
-						$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
+//						$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
+//						if(is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
+//							$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
+//						}
+
+						// bluelovers
+						$urladd = '&agent='.$this->input['agent'];
+
+						$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time.$urladd, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 						if(is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
-							$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
+							$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time.$urladd, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 						}
+						// bluelovers
 					}
 				}
 				return $synstr;
@@ -366,6 +375,10 @@ class usercontrol extends base {
 		@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
 
 		if($success) {
+			// bluelovers
+			$this->db->result_first("UPDATE ".UC_DBTABLEPRE."memberfields SET avatar = '' WHERE uid='$uid' LIMIT 1");
+			// bluelovers
+
 			return '<?xml version="1.0" ?><root><face success="1"/></root>';
 		} else {
 			return '<?xml version="1.0" ?><root><face success="0"/></root>';
