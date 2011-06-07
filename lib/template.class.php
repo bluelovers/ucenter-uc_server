@@ -104,7 +104,7 @@ class template {
 
 		$template = preg_replace("/$this->const_regexp/", "<?=\\1?>", $template);
 
-		$template = "<? if(!defined('UC_ROOT')) exit('Access Denied');?>\r\n$template";
+		$template = "<? if(!defined('UC_ROOT')) exit('Access Denied');?>\n$template";
 		$template = preg_replace("/(\\\$[a-zA-Z_]\w+\[)([a-zA-Z_]\w+)\]/i", "\\1'\\2']", $template);
 
 		$template = preg_replace("/\<\?(\s{1})/is", "<?php\\1", $template);
