@@ -466,7 +466,7 @@ function show_header() {
 	}
 
 	function showmessage(message) {
-		$('notice').value += message + "\\r\\n";
+		$('notice').value += message + "\\n";
 	}
 </script>
 <meta content="Comsenz Inc." name="Copyright" />
@@ -552,23 +552,23 @@ function config_edit() {
 	$ucauthkey = generate_key();
 	$ucsiteid = generate_key();
 	$ucmykey = generate_key();
-	$config = "<?php \r\ndefine('UC_DBHOST', '$dbhost');\r\n";
-	$config .= "define('UC_DBUSER', '$dbuser');\r\n";
-	$config .= "define('UC_DBPW', '$dbpw');\r\n";
-	$config .= "define('UC_DBNAME', '$dbname');\r\n";
-	$config .= "define('UC_DBCHARSET', '".DBCHARSET."');\r\n";
-	$config .= "define('UC_DBTABLEPRE', '$tablepre');\r\n";
-	$config .= "define('UC_COOKIEPATH', '/');\r\n";
-	$config .= "define('UC_COOKIEDOMAIN', '');\r\n";
-	$config .= "define('UC_DBCONNECT', 0);\r\n";
-	$config .= "define('UC_CHARSET', '".CHARSET."');\r\n";
-	$config .= "define('UC_FOUNDERPW', '$ucfounderpw');\r\n";
-	$config .= "define('UC_FOUNDERSALT', '$ucsalt');\r\n";
-	$config .= "define('UC_KEY', '$ucauthkey');\r\n";
-	$config .= "define('UC_SITEID', '$ucsiteid');\r\n";
-	$config .= "define('UC_MYKEY', '$ucmykey');\r\n";
-	$config .= "define('UC_DEBUG', false);\r\n";
-	$config .= "define('UC_PPP', 20);\r\n";
+	$config = "<?php \ndefine('UC_DBHOST', '$dbhost');\n";
+	$config .= "define('UC_DBUSER', '$dbuser');\n";
+	$config .= "define('UC_DBPW', '$dbpw');\n";
+	$config .= "define('UC_DBNAME', '$dbname');\n";
+	$config .= "define('UC_DBCHARSET', '".DBCHARSET."');\n";
+	$config .= "define('UC_DBTABLEPRE', '$tablepre');\n";
+	$config .= "define('UC_COOKIEPATH', '/');\n";
+	$config .= "define('UC_COOKIEDOMAIN', '');\n";
+	$config .= "define('UC_DBCONNECT', 0);\n";
+	$config .= "define('UC_CHARSET', '".CHARSET."');\n";
+	$config .= "define('UC_FOUNDERPW', '$ucfounderpw');\n";
+	$config .= "define('UC_FOUNDERSALT', '$ucsalt');\n";
+	$config .= "define('UC_KEY', '$ucauthkey');\n";
+	$config .= "define('UC_SITEID', '$ucsiteid');\n";
+	$config .= "define('UC_MYKEY', '$ucmykey');\n";
+	$config .= "define('UC_DEBUG', false);\n";
+	$config .= "define('UC_PPP', 20);\n";
 	$fp = fopen(CONFIG, 'w');
 	fwrite($fp, $config);
 	fclose($fp);
