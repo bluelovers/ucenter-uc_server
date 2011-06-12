@@ -140,10 +140,10 @@ class base {
 
 	function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 
-		$ckey_length = 4;	// 随机密钥长度 取值 0-32;
-		// 加入随机密钥，可以令密文无任何规律，即便是原文和密钥完全相同，加密结果也会每次不同，增大破解难度。
-		// 取值越大，密文变动规律越大，密文变化 = 16 的 $ckey_length 次方
-		// 当此值为 0 时，则不产生随机密钥
+		$ckey_length = 4;	// 繦诀盞芲  0-32;
+		// 繦诀盞芲盞ゅ礚ヴ砏獽琌ゅ㎝盞芲Ч盞挡狦穦–Ωぃ糤瘆秆螟
+		// 禫盞ゅ跑笆砏禫盞ゅ跑て = 16  $ckey_length Ωよ
+		// 讽 0 玥ぃ玻ネ繦诀盞芲
 
 		$key = md5($key ? $key : UC_KEY);
 		$keya = md5(substr($key, 0, 16));
