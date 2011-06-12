@@ -103,10 +103,19 @@ class miscmodel {
 		if(!$fp) {
 			return '';
 		} else {
+			// 集阻塞/非阻塞模式流,$block==true則應用流模式
 			stream_set_blocking($fp, $block);
+			// 設置流的超時時間
 			stream_set_timeout($fp, $timeout);
 			@fwrite($fp, $out);
+			// 從封裝協議文件指針中取得報頭／元數據
 			$status = stream_get_meta_data($fp);
+
+			/**
+			 * timed_out如果在上次調用 fread()
+			 * 或者 fgets() 中等待數據時流超時了則為 TRUE,
+			 * 下面判斷為流沒有超時的情況
+			**/
 			if(!$status['timed_out']) {
 				while (!feof($fp)) {
 					if(($header = @fgets($fp)) && ($header == "\r\n" ||  $header == "\n")) {
@@ -115,7 +124,9 @@ class miscmodel {
 				}
 
 				$stop = false;
+				// 如果沒有讀到文件尾
 				while(!feof($fp) && !$stop) {
+					// 看連接時限是否=0或者大於8192  =》8192  else =》limit  所讀字節數
 					$data = fread($fp, ($limit == 0 || $limit > 8192 ? 8192 : $limit));
 					$return .= $data;
 					if($limit) {
