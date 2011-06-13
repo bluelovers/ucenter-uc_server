@@ -18,6 +18,10 @@ $random = isset($_GET['random']) ? $_GET['random'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $check = isset($_GET['check_file_exists']) ? $_GET['check_file_exists'] : '';
 
+// bluelovers
+require './uc_version.php';
+// bluelovers
+
 $avatar = './data/avatar/'.get_avatar($uid, $size, $type);
 if(file_exists(dirname(__FILE__).'/'.$avatar)) {
 	if($check) {
