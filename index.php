@@ -22,6 +22,22 @@ define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 
 unset($GLOBALS, $_ENV, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $HTTP_SERVER_VARS, $HTTP_ENV_VARS);
 
+// bluelovers
+$_GET = _loop_crlf2lf($_GET);
+$_POST = _loop_crlf2lf($_POST);
+$_REQUEST = _loop_crlf2lf($_REQUEST);
+
+function _loop_crlf2lf($array) {
+	if (is_string($array)) {
+		return str_replace("\r\n", "\n", $array);
+	} elseif (is_array($array)) {
+		return array_map('_loop_crlf2lf', $array);
+	} else {
+		return $array;
+	}
+}
+// bluelovers
+
 $_GET		= daddslashes($_GET, 1, TRUE);
 $_POST		= daddslashes($_POST, 1, TRUE);
 $_COOKIE	= daddslashes($_COOKIE, 1, TRUE);
