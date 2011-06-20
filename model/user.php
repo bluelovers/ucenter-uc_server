@@ -204,7 +204,20 @@ class usermodel {
 			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'big')) && unlink($avatar_file);
 			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'middle')) && unlink($avatar_file);
 			file_exists($avatar_file = UC_DATADIR.'./avatar/'.$this->base->get_avatar($uid, 'small')) && unlink($avatar_file);
+
+			// bluelovers
+			if (intval($uid) == $uid) {
+				$_uidsarr[] = $uid;
+			}
+			// bluelovers
 		}
+
+		// bluelovers
+		if ($_uidsarr) {
+			$_uidsarr = $this->base->implode($_uidsarr);
+			$this->db->query("UPDATE ".UC_DBTABLEPRE."memberfields SET avatar='' WHERE uid IN ($_uidsarr)");
+		}
+		// bluelovers
 	}
 
 	function get_total_num($sqladd = '') {

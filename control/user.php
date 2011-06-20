@@ -366,6 +366,9 @@ class usercontrol extends base {
 		@unlink(UC_DATADIR.'./tmp/upload'.$uid.$filetype);
 
 		if($success) {
+			// bluelovers
+			$this->db->query("UPDATE ".UC_DBTABLEPRE."memberfields SET avatar='' WHERE uid = '$uid'");
+			// bluelovers
 			return '<?xml version="1.0" ?><root><face success="1"/></root>';
 		} else {
 			return '<?xml version="1.0" ?><root><face success="0"/></root>';
