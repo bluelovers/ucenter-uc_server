@@ -1,3 +1,13 @@
 
 Options All -Indexes
 Allow from all
+
+RewriteEngine On
+RewriteRule (\.svn|\.git|control|lib|model|plugin|release|view)[\/\\].* data/index.html [NC,G,L]
+RewriteRule uc_version.php data/index.html [NC,G,L]
+RewriteRule data[\/\\](backup|cache|logs|view)[\/\\].* data/index.html [NC,G,L]
+
+<Files 403.shtml>
+	order allow,deny
+	allow from all
+</Files>
