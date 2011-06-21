@@ -12,7 +12,7 @@
 
 if (!defined('UC_ROOT')) define('UC_ROOT', dirname(__FILE__).'/');
 
-require UC_ROOT.'./release/release.php';
+require_once UC_ROOT.'./release/release.php';
 
 $___ucenter_server___ = array();
 $___ucenter_server___['PHP_SELF'] = htmlspecialchars($_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['PHP_SELF']);
