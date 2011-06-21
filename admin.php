@@ -57,6 +57,10 @@ $a = empty($a) ? 'index' : $a;
 
 define('RELEASE_ROOT', '');
 
+// bluelovers
+require UC_ROOT.'./uc_version.php';
+// bluelovers
+
 if(in_array($m, array('admin', 'app', 'badword', 'cache', 'db', 'domain', 'frame', 'log', 'note', 'feed', 'mail', 'setting', 'user', 'credit', 'seccode', 'tool', 'plugin', 'pm'))) {
 	include UC_ROOT."control/admin/$m.php";
 	$control = new control();
