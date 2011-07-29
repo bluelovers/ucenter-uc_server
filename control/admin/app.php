@@ -159,6 +159,18 @@ class control extends adminbase {
 			$extraurl = getgpc('extraurl', 'P');
 			//$allowips = getgpc('allowips', 'P');
 			if(getgpc('apppath', 'P')) {
+				//BUG:windows 伺服器的情況下會產生 BUG
+				/**
+				 * windows 伺服器的情況下會產生 BUG
+				 *
+				 * D:/xampp/htdocs_vhost/user-bluelovers.test/htdocs/
+				 *
+				 * 會變成
+				 *
+				 * D:\xampp\htdocs_vhost\user-bluelovers.test\htdocs/
+				 *
+				 * 然後會產生無法判斷應用的物理路徑
+				 */
 				$app['extra']['apppath'] = $this->_realpath(getgpc('apppath', 'P'));
 				if($app['extra']['apppath']) {
 //					$apifile = $app['extra']['apppath'].'./api/uc.php';
@@ -202,7 +214,7 @@ class control extends adminbase {
 			$extra = addslashes(serialize($app['extra']));
 			$this->db->query("UPDATE ".UC_DBTABLEPRE."applications SET appid='$appid', name='$name', url='$url',
 				type='$type', ip='$ip', viewprourl='$viewprourl', apifilename='$apifilename', authkey='$authkey',
-				synlogin='$synlogin', recvnote='$recvnote', extra='$extra', 
+				synlogin='$synlogin', recvnote='$recvnote', extra='$extra',
 				tagtemplates='$tagtemplates'
 				WHERE appid='$appid'");
 			$updated = true;
@@ -272,6 +284,7 @@ class control extends adminbase {
 	}
 
 	function _realpath($path) {
+		//BUG:windows 伺服器的情況下會產生 BUG
 		return realpath($path).'/';
 	}
 }
