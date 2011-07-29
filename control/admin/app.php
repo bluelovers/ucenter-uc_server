@@ -130,6 +130,12 @@ class control extends adminbase {
 			$url = $_ENV['note']->get_url_code('test', '', $appid);
 			$status = $_ENV['app']->test_api($url, $ip);
 		}
+
+		/**
+		 * 指定 header 的檔案類型
+		 */
+		@header('Content-Type: text/javascript');
+
 		// bluelovers
 		echo '/* '.$url." */\n";
 		// bluelovers
