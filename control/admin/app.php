@@ -129,8 +129,21 @@ class control extends adminbase {
 			$url = $_ENV['note']->get_url_code('test', '', $appid);
 			$status = $_ENV['app']->test_api($url, $ip);
 		}
+
+		/**
+		 * 指定 header 的檔案類型
+		 */
+		@header('Content-Type: text/javascript');
+
 		// bluelovers
-		echo '/* '.$url." */\n";
+		echo <<<EOL
+/*
+	url:	$url
+	ip:		$ip
+*/
+
+EOL;
+
 		// bluelovers
 		if($status == '1') {
 			echo 'document.getElementById(\'status_'.$appid.'\').innerHTML = "<img src=\'images/correct.gif\' border=\'0\' class=\'statimg\' \/><span class=\'green\'>'.$this->lang['app_connent_ok'].'</span>";testlink();';
@@ -159,6 +172,18 @@ class control extends adminbase {
 			$extraurl = getgpc('extraurl', 'P');
 			//$allowips = getgpc('allowips', 'P');
 			if(getgpc('apppath', 'P')) {
+				//BUG:windows 伺服器的情況下會產生 BUG
+				/**
+				 * windows 伺服器的情況下會產生 BUG
+				 *
+				 * D:/xampp/htdocs_vhost/user-bluelovers.test/htdocs/
+				 *
+				 * 會變成
+				 *
+				 * D:\xampp\htdocs_vhost\user-bluelovers.test\htdocs/
+				 *
+				 * 然後會產生無法判斷應用的物理路徑
+				 */
 				$app['extra']['apppath'] = $this->_realpath(getgpc('apppath', 'P'));
 				if($app['extra']['apppath']) {
 //					$apifile = $app['extra']['apppath'].'./api/uc.php';
@@ -202,7 +227,7 @@ class control extends adminbase {
 			$extra = addslashes(serialize($app['extra']));
 			$this->db->query("UPDATE ".UC_DBTABLEPRE."applications SET appid='$appid', name='$name', url='$url',
 				type='$type', ip='$ip', viewprourl='$viewprourl', apifilename='$apifilename', authkey='$authkey',
-				synlogin='$synlogin', recvnote='$recvnote', extra='$extra', 
+				synlogin='$synlogin', recvnote='$recvnote', extra='$extra',
 				tagtemplates='$tagtemplates'
 				WHERE appid='$appid'");
 			$updated = true;
@@ -272,7 +297,9 @@ class control extends adminbase {
 	}
 
 	function _realpath($path) {
-		return realpath($path).'/';
+		//BUG:windows 伺服器的情況下會產生 BUG
+		// 強制將 路徑轉為 /
+		return str_replace('\\', '/', realpath($path)).'/';
 	}
 }
 

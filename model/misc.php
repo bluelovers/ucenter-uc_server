@@ -92,10 +92,15 @@ class miscmodel {
 			$out .= "Cookie: $cookie\n\n";
 		}
 
+		// bluelovers
+		// 方便除錯
+		$_hostname = ($ip ? $ip : $host);
+		// bluelovers
+
 		if(function_exists('fsockopen')) {
-			$fp = @fsockopen(($ip ? $ip : $host), $port, $errno, $errstr, $timeout);
+			$fp = @fsockopen($_hostname, $port, $errno, $errstr, $timeout);
 		} elseif (function_exists('pfsockopen')) {
-			$fp = @pfsockopen(($ip ? $ip : $host), $port, $errno, $errstr, $timeout);
+			$fp = @pfsockopen($_hostname, $port, $errno, $errstr, $timeout);
 		} else {
 			$fp = false;
 		}
