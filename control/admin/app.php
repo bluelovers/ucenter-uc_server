@@ -285,7 +285,8 @@ class control extends adminbase {
 
 	function _realpath($path) {
 		//BUG:windows 伺服器的情況下會產生 BUG
-		return realpath($path).'/';
+		// 強制將 路徑轉為 /
+		return str_replace('\\', '/', realpath($path)).'/';
 	}
 }
 
