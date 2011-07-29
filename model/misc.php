@@ -92,6 +92,10 @@ class miscmodel {
 			$out .= "Cookie: $cookie\n\n";
 		}
 
+		// bluelovers
+		$_hostname = ($ip ? $ip : $host);
+		// bluelovers
+
 		if(function_exists('fsockopen')) {
 			$fp = @fsockopen(($ip ? $ip : $host), $port, $errno, $errstr, $timeout);
 		} elseif (function_exists('pfsockopen')) {
