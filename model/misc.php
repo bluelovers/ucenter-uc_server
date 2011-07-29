@@ -93,6 +93,7 @@ class miscmodel {
 		}
 
 		// bluelovers
+		// 方便除錯
 		$_hostname = ($ip ? $ip : $host);
 		// bluelovers
 
