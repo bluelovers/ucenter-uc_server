@@ -125,6 +125,7 @@ class control extends adminbase {
 			$uc_note = new uc_note();
 			$status = $uc_note->test($note['getdata'], $note['postdata']);
 		} else {
+			//BUG:當 ucenter 放置於 discuz 子目錄下的 uc_server 並且當 IP 為空時 通信檢測會顯示失敗
 			$this->load('note');
 			$url = $_ENV['note']->get_url_code('test', '', $appid);
 			$status = $_ENV['app']->test_api($url, $ip);
