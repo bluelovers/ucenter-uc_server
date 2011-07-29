@@ -137,7 +137,14 @@ class control extends adminbase {
 		@header('Content-Type: text/javascript');
 
 		// bluelovers
-		echo '/* '.$url." */\n";
+		echo <<<EOL
+/*
+	url:	$url
+	ip:		$ip
+*/
+
+EOL;
+
 		// bluelovers
 		if($status == '1') {
 			echo 'document.getElementById(\'status_'.$appid.'\').innerHTML = "<img src=\'images/correct.gif\' border=\'0\' class=\'statimg\' \/><span class=\'green\'>'.$this->lang['app_connent_ok'].'</span>";testlink();';
